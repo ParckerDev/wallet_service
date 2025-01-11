@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: wallet_db
+      ALEMBIC_USER: user
+    ports:
+      - "5432:5432"
+    
+
+
+  web_app:
+    build: .
+    ports:
+      - "8000:8000"
+    
+    depends_on:
+      - db
+        
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://user:password@db:5432/wallet_db
+    volumes:
+      - ./app:/app
