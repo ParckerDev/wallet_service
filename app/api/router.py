@@ -47,11 +47,9 @@ async def create_new_wallet(session: sess):
         HTTPException: Если кошелек не был создан.
     """
     wallet = await create_wallet(session=session)
-    return (
-        wallet
-        if wallet
-        else HTTPException(status_code=500, detail="wallet don't create")
-    )
+    if not wallet:
+        raise HTTPException(status_code=500, detail="wallet don't create")
+    return wallet
 
 
 @router.get("/{wallet_uuid}", response_model=WalletResponse, status_code=200)
