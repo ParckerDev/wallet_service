@@ -95,13 +95,18 @@ async def perf_operations(
         dict: Сообщение о результате операции и текущий баланс.
 
     Raises:
-        HTTPException: Если кошелек не найден или недостаточно средств для вывода.
+        HTTPException: Если кошелек не найден или недостаточно средств
+        для вывода.
     """
     wallet = await get_wallet(session=session, wallet_uuid=wallet_uuid)
     if not wallet:
         raise HTTPException(status_code=404, detail="Wallet not found")
     if operation.operation_type == "DEPOSIT":
-        await deposit_operation(session=session, wallet=wallet, amount=operation.amount)
+        await deposit_operation(
+            session=session,
+            wallet=wallet,
+            amount=operation.amount,
+        )
         return {
             "message": f"wallet deposit successful!",
             "balance": f"{format_money(wallet.balance)}$",
