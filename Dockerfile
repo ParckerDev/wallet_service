@@ -10,4 +10,4 @@ ENV PATH="/root/.local/bin:$PATH"
 
 WORKDIR /app
 
-CMD ["sh", "-c", "sleep 2 && ls && alembic revision --autogenerate -m 'pre initial migrations' && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"]
+CMD ["sh", "-c", "sleep 2 && alembic revision --autogenerate -m 'initial migrations' && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"]
