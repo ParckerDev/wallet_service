@@ -66,7 +66,11 @@ def format_money(money):
     return str(Decimal(money).quantize(Decimal("0.00")))
 
 
-async def deposit_operation(session: AsyncSession, wallet: Wallet, amount: Decimal):
+async def deposit_operation(
+    session: AsyncSession,
+    wallet: Wallet,
+    amount: Decimal,
+):
     """
     Выполняет операцию депозита на указанный кошелек.
 
@@ -84,7 +88,11 @@ async def deposit_operation(session: AsyncSession, wallet: Wallet, amount: Decim
     return wallet
 
 
-async def withdraw_operation(session: AsyncSession, wallet: Wallet, amount: Decimal):
+async def withdraw_operation(
+    session: AsyncSession,
+    wallet: Wallet,
+    amount: Decimal,
+):
     """
     Выполняет операцию вывода средств с указанного кошелька.
 
