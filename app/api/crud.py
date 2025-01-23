@@ -48,7 +48,7 @@ async def get_wallet(session: AsyncSession, wallet_uuid: str) -> Wallet | None:
     Returns:
         Wallet | None: Найденный кошелек или None, если кошелек не найден.
     """
-    stmt = select(Wallet).where(Wallet.uuid == wallet_uuid)
+    stmt = select(Wallet).where(Wallet.uuid == wallet_uuid).with_for_update()
     wallet = await session.scalar(stmt)
     return wallet
 
