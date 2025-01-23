@@ -10,7 +10,7 @@ async def get_rabbit_connection():
     Возвращает:
         aio_pika.Connection: Соединение с RabbitMQ.
     """
-    connection = await aio_pika.connect_robust("amqp://user:password@localhost/")
+    connection = await aio_pika.connect_robust("amqp://guest:guest@localhost/")
     return connection
 
 async def send_message(queue_name: str, message: dict):
