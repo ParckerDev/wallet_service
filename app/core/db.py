@@ -9,7 +9,7 @@ from .config import settings
 
 class DataBaseHelper:
     def __init__(self, url: str, echo: bool = False):
-        self.engine: AsyncEngine = create_async_engine(url=url, echo=echo)
+        self.engine: AsyncEngine = create_async_engine(url=url, echo=echo, pool_size=50, max_overflow=20)
         self.session_factory: async_sessionmaker[AsyncSession] = async_sessionmaker(
             bind=self.engine,
             expire_on_commit=False,
