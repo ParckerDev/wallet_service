@@ -6,6 +6,7 @@ from core.db import db_helper
 from .crud import (
     create_wallet,
     get_wallet,
+    get_wallet_block,
     get_wallets,
     deposit_operation,
     withdraw_operation,
@@ -98,7 +99,7 @@ async def perf_operations(
         HTTPException: Если кошелек не найден или недостаточно средств
         для вывода.
     """
-    wallet = await get_wallet(session=session, wallet_uuid=wallet_uuid)
+    wallet = await get_wallet_block(session=session, wallet_uuid=wallet_uuid)
     if not wallet:
         raise HTTPException(status_code=404, detail="Wallet not found")
     if operation.operation_type == "DEPOSIT":
@@ -116,6 +117,7 @@ async def perf_operations(
             raise HTTPException(
                 status_code=400,
                 detail="The balance is less than the withdrawal amount!",
+                headers={'message': 'Balance is small'}
             )
         await withdraw_operation(
             session=session, wallet=wallet, amount=operation.amount
